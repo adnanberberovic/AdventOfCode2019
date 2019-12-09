@@ -1,4 +1,5 @@
 import numpy as np
+from PIL import Image
 import pandas as pd
 df = pd.read_csv(r"C:\Users\Adnan\Dropbox\Documents\Projects\AdventOfCode\AdventOfCode2019\input8.txt", header=None)
 coded_image = df.values[0][0]
@@ -39,19 +40,24 @@ for y in layer_lowest_numbers:
 
 print('Number of ones multiplied by number of twos: ', num_ones*num_twos)
         
-transparent_row = ['2']*width
-decoded_image = []
+transparent_row = [2]*width
+decoded_image_data = []
 for h in range(height):
-    decoded_image.append(transparent_row.copy())
+    decoded_image_data.append(transparent_row.copy())
 
 for layer in layers:
     for h in range(height):
         for w in range(width):
-            if decoded_image[h][w] == '2':
-                if str(layer[0][h][w]) == '0':
-                    decoded_image[h][w] = ' '
-                else:
-                    decoded_image[h][w] = str(layer[0][h][w])
+            if decoded_image_data[h][w] == 2:
+                decoded_image_data[h][w] = layer[0][h][w]
 
-for row in decoded_image:
-    print(row)
+decoded_image = np.zeros((height, width, 3), dtype=np.uint8)
+
+for w in range(width):
+    for h in range(height):
+        if decoded_image_data[h][w] == 1:
+            decoded_image[h,w] = [255,255,255]
+
+image = Image.fromarray(decoded_image)
+image = image.resize((width*25, height*25))
+image.show()
