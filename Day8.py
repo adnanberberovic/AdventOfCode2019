@@ -56,7 +56,7 @@ decoded_image = np.zeros((height, width, 3), dtype=np.uint8)
 for w in range(width):
     for h in range(height):
         if decoded_image_data[h][w] == 1:
-            decoded_image[h,w] = [255,255,255]
+            decoded_image[h,w] = [0, 255, 0]
 
 image = Image.fromarray(decoded_image)
 image = image.resize((width*25, height*25))
