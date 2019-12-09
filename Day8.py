@@ -59,5 +59,6 @@ for w in range(width):
             decoded_image[h,w] = [0, 255, 0]
 
 image = Image.fromarray(decoded_image)
-image = image.resize((width*25, height*25))
+scale = 25
+image = image.resize((width*scale, height*scale))
 image.show()
